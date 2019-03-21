@@ -79,3 +79,11 @@ encodeName s = concat(map encodeChar s)
 betterEncodeName :: String -> String
 betterEncodeName s = concat(map (\x -> if x == 'u' || x == 'U' then "00" else encodeChar x) s)
 
+--12 - Produz lista com strings de 10 caracteres, usando o seguinte esquema: strings de entrada com mais de 10 caracteres são truncadas, strings com até 10 caracteres são completadas com '.' até ficarem com 10 caracteres.
+cortaString :: String -> String
+cortaString s
+  |length s > 10 = take 10 s
+  |length s < 10 = take 10 (s ++"..........")
+  |otherwise = s
+cortaStringLista :: [String] -> [String]
+cortaStringLista s = map cortaString s

@@ -41,8 +41,13 @@ degreeToRad x n = ((x*360)/n)*(pi/180)
 -- Gera lista representando circunferência de círculos de acordo com quantidade de círculos, raio dos círculos e raio da circunferência
 genCircle1 :: Int -> [Circle]
 genCircle1 n = [(((cos(degreeToRad x (fromIntegral n))*rC+300), (sin(degreeToRad x (fromIntegral n))*rC+300)), r) | x <- [0..fromIntegral(n-1)]]
-  where r   = 20
-        rC = 250
+  where r  = 20
+        rC = 200
+
+genCircle2 :: Float -> Float -> Int -> [Circle]
+genCircle2 c l nC = [((((cos(degreeToRad i (fromIntegral nC))*10+(r+10*2)) + (gap*j)), ((sin(degreeToRad i (fromIntegral nC))*10+(r+10*2)) + (gap*k))), r) | i <- [0..fromIntegral(nC)], j <- [0..(c-1)], k <- [0..(l-1)]]
+  where gap = r*3
+        r   = 20
 
 ----------------
 -- Strings SVG --
@@ -98,5 +103,17 @@ genCase2 = do
         svgfigs = svgElements svgCircle circles (map svgStyle palette)
         circles = genCircle1 circulos
         palette = orangePallete circulos
-        circulos = 20
+        circulos = 5
+        (w,h) = (1024,768) -- width,height da imagem SVG
+
+genCase3 :: IO ()
+genCase3 = do
+  writeFile "case3.svg" $ svgstrs
+  where svgstrs = svgBegin w h ++ svgfigs ++ svgEnd
+        svgfigs = svgElements svgCircle circles (map svgStyle palette)
+        circles = genCircle2 (fromIntegral colunas) (fromIntegral linhas) nCirc
+        palette = rgbPalette (nCirc*colunas*linhas)
+        nCirc   = 3
+        colunas  = 5
+        linhas = 5
         (w,h) = (1024,768) -- width,height da imagem SVG

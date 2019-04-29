@@ -79,5 +79,12 @@ pot(E,N,[X|Xs]) :-
 
 potencias(N, L) :-
   N >= 0,
-  E is 0,
-  pot(E,N,L), !.
+  pot(0,N,L), !.
+
+%12 -
+cedulas(_, [], []).
+cedulas(V, [X|Xs], [Y|Ys]) :-
+  V >= 0,
+  Y is floor(V/X),
+  V1 is V - Y * X,
+  cedulas(V1, Xs, Ys), !.

@@ -1,0 +1,9 @@
+import
+public
+File
+Scanner
+while
+System
+println
+import java.util.Scanner;
+throws pankaj

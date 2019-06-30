@@ -71,7 +71,7 @@ public class DetailedWindowController {
   public void showImageWindow(String selectedQuestionURL){
     try{
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(App.class.getClassLoader().getResource("view/ImageWindowLayout.fxml"));
+      loader.setLocation(getClass().getClassLoader().getResource("view/ImageWindowLayout.fxml"));
       Pane window = (Pane) loader.load();
 
       Stage imageWindowStage = new Stage();

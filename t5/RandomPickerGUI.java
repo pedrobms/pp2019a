@@ -27,6 +27,7 @@ public class RandomPickerGUI extends Application{
   private Button btnNext = new Button("Next");
   private FileChooser fileChooser = new FileChooser();
   private StringListController names = new StringListController();
+  private Label shuffledName = new Label();
   private Alert about = new Alert(AlertType.NONE, "Random Picker\nCreated by Pedro Bilar Montero", ButtonType.OK);
 
   public static void main(String[] args) {
@@ -68,26 +69,26 @@ public class RandomPickerGUI extends Application{
     btnShuffleOff.setOnAction(new EventHandler<ActionEvent>(){
       public void handle(final ActionEvent e){
         if (names != null){
+           shuffledName.setText("");
            names.removeAllListNames();
            for (String line : txtArea.getText().split("\\n")){
              names.addSingleListName(line);
            }
            names.randomizeListNames();
            btnNext.setDisable(false);
-           txtArea.clear();
         }
       }
     });
     btnShuffleOn.setOnAction(new EventHandler<ActionEvent>(){
       public void handle(final ActionEvent e){
         if (names != null){
+           shuffledName.setText("");
            names.removeAllListNames();
            for (String line : txtArea.getText().split("\\n")){
              names.addSingleListName(line);
            }
            btnNext.setDisable(false);
            names.randomizeListNamesOnline();
-           txtArea.clear();
         }
       }
     });
@@ -95,17 +96,18 @@ public class RandomPickerGUI extends Application{
       public void handle(final ActionEvent e){
         if (names.getAllListNames().size() > 0){
           String str = names.getFirstListName();
-          txtArea.appendText(str + "\n");
+          shuffledName.setText(str);
           names.removeListName(str);
         }else{
+          shuffledName.setText("");
           btnNext.setDisable(true);
         }
       }
     });
-
     grid.add(menu,0,0);
     grid.add(txtArea,0,1);
-    grid.add(buttons,0,2);
+    grid.add(shuffledName,0,2);
+    grid.add(buttons,0,3);
     stage.setScene(new Scene(grid, 230, 230));
     stage.show();
   }

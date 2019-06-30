@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QuestionTableController">
+   <children>
+      <TableView fx:id="table" prefHeight="470.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="ano" maxWidth="1.7976931348623157E308" prefWidth="50.0" resizable="false" text="Ano" />
+            <TableColumn fx:id="prova" maxWidth="1.7976931348623157E308" resizable="false" text="Prova" />
+            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="50.0" resizable="false" sortable="false" text="Questao">
+               <columns>
+                  <TableColumn fx:id="tipoQuestao" prefWidth="60.0" resizable="false" text="Tipo" />
+                  <TableColumn fx:id="idQuestao" prefWidth="30.0" resizable="false" text="ID" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="objeto" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Objeto" />
+            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="200.0" resizable="false" text="Acertos">
+               <columns>
+                  <TableColumn fx:id="acertosCurso" maxWidth="100.0" prefWidth="55.0" resizable="false" text="Curso" />
+                  <TableColumn fx:id="acertosRegiao" maxWidth="100.0" prefWidth="55.0" resizable="false" text="Região" />
+                  <TableColumn fx:id="acertosBrasil" maxWidth="100.0" prefWidth="55.0" resizable="false" text="Brasil" />
+                  <TableColumn fx:id="acertosDif" maxWidth="100.0" prefWidth="55.0" resizable="false" text="Dif" />
+               </columns>
+            </TableColumn>
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

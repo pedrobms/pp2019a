@@ -4,9 +4,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
 public class RootController {
-  private App app;
+  private EnadeUFSMExplorer app;
 
-  public void setApp(App app){
+  public void setApp(EnadeUFSMExplorer app){
     this.app = app;
   }
 

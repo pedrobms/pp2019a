@@ -28,7 +28,7 @@ public class QuestionTableController {
   @FXML
   private TableColumn<Question, String> acertosDif;
 
-  private App app;
+  private EnadeUFSMExplorer app;
 
   public QuestionTableController() {
 
@@ -49,7 +49,7 @@ public class QuestionTableController {
             (observable, oldValue, newValue) -> app.showDetailedWindow(newValue));
   }
 
-  public void setApp(App app) {
+  public void setApp(EnadeUFSMExplorer app) {
     this.app = app;
     table.setItems(app.getQuestionData());
   }

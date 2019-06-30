@@ -11,7 +11,7 @@ public class NewURLController {
   private TextField userInput;
 
   private Stage URLStage;
-  private App app;
+  private EnadeUFSMExplorer app;
 
   public NewURLController(){}
 
@@ -21,7 +21,7 @@ public class NewURLController {
     this.URLStage = URLStage;
   }
 
-  public void setApp (App app){
+  public void setApp (EnadeUFSMExplorer app){
     this.app = app;
   }
 

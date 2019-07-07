@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import javafx.fxml.Initializable;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,14 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class GitHubAnalyserGUI extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private FileController file = new FileController();
-    private GsonThread commitAnalyzerThread;
+    private GsonThread commitAnalyzerThread = new GsonThread();
 
     private ObservableList<GitUrl> urlList = FXCollections.observableArrayList();
 
@@ -31,9 +28,8 @@ public class GitHubAnalyserGUI extends Application {
       for(String str: file.getURLList()){
         GitUrl gitUrl = new GitUrl(str, 0, 0);
         urlList.add(gitUrl);
+        commitAnalyzerThread.setRepoUrl(gitUrl.getUrl());
       }
-      this.commitAnalyzerThread = new GsonThread(file.getURLList().toArray(new String[0]), this);
-      //commitAnalyzerThread.setApp(this);
     }
 
     public void loadRepoData(ObservableList<GitUrl> repoInfo) {
@@ -43,7 +39,8 @@ public class GitHubAnalyserGUI extends Application {
 
     public void runCommitAnalyzer() {
       commitAnalyzerThread.start();
-      try{commitAnalyzerThread.join();}catch(InterruptedException e){e.printStackTrace();}
+      commitAnalyzerThread.conditionWait();
+      System.out.println(commitAnalyzerThread.getRepoData());
       loadRepoData(commitAnalyzerThread.getRepoData());
     }
 

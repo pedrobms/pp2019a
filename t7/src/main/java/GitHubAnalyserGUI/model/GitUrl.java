@@ -52,9 +52,8 @@ public class GitUrl {
     return messageCount;
   }
 
-
   @Override
   public String toString(){
-    return this.getUrl();
+    return this.getUrl() +" CommitCount:"+String.valueOf(this.getCommitCount()+" MessageCount:"+String.valueOf(this.getMessageCount()));
   }
 }

@@ -35,4 +35,9 @@ public class RootController {
   public void handleCommitAnalyzer() {
     app.runCommitAnalyzer();
   }
+
+  @FXML
+  public void handleAbout() {
+    
+  }
 }

@@ -7,45 +7,55 @@ import com.google.gson.*;
 //import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-// javac -cp .:gson-2.8.5.jar DemoParseGithubWithGson.java
-// java -cp .:gson-2.8.5.jar DemoParseGithubWithGson
-
-
 
 public class GsonThread extends Thread {
-  private String[] repoUrls;
+  private List<String> repoUrls = new ArrayList<String>();
   private GitHubAnalyserGUI app;
   private ObservableList<GitUrl> repoData = FXCollections.observableArrayList();
 
-  public GsonThread(String[] repoUrls, GitHubAnalyserGUI app) {
-    this.repoUrls = repoUrls;
-    this.app = app;
+  public void setRepoUrl(String url){
+    repoUrls.add(url);
   }
 
   public void setApp(GitHubAnalyserGUI app){
     this.app = app;
   }
 
-  public ObservableList<GitUrl> getRepoData() {
+  public synchronized ObservableList<GitUrl> getRepoData() {
     return repoData;
   }
 
+  @Override
   public void run(){
-    int urlCount = repoUrls.length;
+  for(String str: repoUrls){
     try{
-      for(int i=0; i<urlCount; i++){
-        repoData.add(getRepoInfo(repoUrls[i]));
-      }
+      repoData.add(getRepoInfo(str));
     } catch(IOException e) {
       e.printStackTrace();
     }
   }
+  conditionSignal();
+  }
 
-  public synchronized GitUrl getRepoInfo(String repoUrl) throws IOException {
+  public synchronized void conditionSignal() {
+    this.notifyAll();
+  }
+
+  public synchronized void conditionWait() {
+    try{
+      this.wait();
+    } catch(InterruptedException e){
+      e.printStackTrace();
+    }
+  }
+
+  public GitUrl getRepoInfo(String repoUrl) throws IOException {
     int commitCount = 0;
     int messageCount = 0;
     URL url = new URL(repoUrl);
@@ -58,7 +68,7 @@ public class GsonThread extends Thread {
       new InputStreamReader(con.getInputStream()));
 
     // Response header (includes pagination links)
-    System.out.println(con.getHeaderFields().get("Link").get(0));
+    //System.out.println(con.getHeaderFields().get("Link").get(0));
 
     // Parse a nested JSON response using Gson
     JsonParser parser = new JsonParser();
